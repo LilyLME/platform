@@ -13,7 +13,10 @@ $router->group([
     $router->get('/{id:[0-9]+}', 'PostsController@show');
 
     // GeoJSON
-    $router->get('/geojson', 'GeoJSONController@index');
+    $router->get('/geojson', [
+        'middleware' => 'cacheControl:performance,api',
+        'uses' => 'GeoJSONController@index'
+    ]);
     $router->get('/geojson/{zoom}/{x}/{y}', 'GeoJSONController@index');
     $router->get('/{id:[0-9]+}/geojson', 'GeoJSONController@show');
 
